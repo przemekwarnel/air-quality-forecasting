@@ -54,6 +54,10 @@ pip install -r requirements.txt
 ### 3. Run the notebook 
 jupyter notebook air_quality_rnn.ipynb
 
+or 
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/przemekwarnel/air-quality-rnn/blob/main/notebooks/air_quality_rnn.ipynb)
+
 ## Author
 
 Przemysław Warnel 
