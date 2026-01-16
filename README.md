@@ -1,5 +1,7 @@
 # Air Quality in Beijing 
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/przemekwarnel/air-quality-rnn/blob/main/notebooks/air_quality_rnn.ipynb)
+
 ## Overview 
 
 This project aims to build a recurrent neural network (RNN) for predicting PM2.5 air pollution levels in Beijing using time-series analysis. The work was completed as part of post-graduate studies at the Polish-Japanese Academy of Information Technology (PJAIT).
@@ -53,10 +55,6 @@ git clone https://github.com/przemekwarnel/air-quality-rnn.git
 pip install -r requirements.txt
 ### 3. Run the notebook 
 jupyter notebook air_quality_rnn.ipynb
-
-or 
-
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/przemekwarnel/air-quality-rnn/blob/main/notebooks/air_quality_rnn.ipynb)
 
 ## Author
 
