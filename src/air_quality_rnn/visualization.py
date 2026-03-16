@@ -6,8 +6,9 @@ def plot_mae_per_horizon(
     naive_metrics: dict,
     ridge_metrics: dict,
     save_path: str,
+    lstm_metrics: dict | None = None,
 ) -> None:
-    """Plot MAE for each forecast horizon step for baseline and Ridge model."""
+    """Plot MAE for each forecast horizon step for baseline, Ridge, and optionally LSTM."""
 
     horizon = len(naive_metrics["mae_per_horizon"])
     steps = range(1, horizon + 1)
@@ -27,6 +28,14 @@ def plot_mae_per_horizon(
         label="Ridge Regression",
         marker="o"
     )
+
+    if lstm_metrics is not None:
+        plt.plot(
+            steps,
+            lstm_metrics["mae_per_horizon"],
+            label="LSTM",
+            marker="o",
+        )
     
     plt.title("MAE per Forecast Horizon")
     plt.xlabel("Horizon Step (hours ahead)")
@@ -46,8 +55,9 @@ def plot_r2_per_horizon(
     naive_metrics: dict,
     ridge_metrics: dict,
     save_path: str,
+    lstm_metrics: dict | None = None,
 ) -> None:
-    """Plot R² for each forecast horizon step for baseline and Ridge model."""
+    """Plot R² for each forecast horizon step for baseline, Ridge, and optionally LSTM."""
 
     horizon = len(naive_metrics["r2_per_horizon"])
     steps = range(1, horizon + 1)
@@ -67,6 +77,14 @@ def plot_r2_per_horizon(
         label="Ridge Regression",
         marker="o"
     )
+
+    if lstm_metrics is not None:
+        plt.plot(
+            steps,
+            lstm_metrics["r2_per_horizon"],
+            label="LSTM",
+            marker="o",
+        )
     
     plt.title("R² per Forecast Horizon")
     plt.xlabel("Horizon Step (hours ahead)")
@@ -105,7 +123,7 @@ def plot_forecast_example(
     plt.plot(
         steps,
         y_pred[sample_idx],
-        label="Ridge Prediction",
+        label="Prediction",
         marker="o"
     )
     
@@ -121,4 +139,22 @@ def plot_forecast_example(
     plt.tight_layout()
     plt.savefig(save_path, dpi=150)
     plt.close()
+
+
+def plot_training_history(history, save_path: str) -> None:
+    """Plot training and validation loss curves from model history."""
     
+    plt.figure(figsize=(10, 6))
+
+    plt.plot(history.history["loss"], label="Training Loss")
+    plt.plot(history.history["val_loss"], label="Validation Loss")
+
+    plt.title("Model Training History")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss (MSE)")
+    plt.legend()
+    plt.grid(alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=150)
+    plt.close()
