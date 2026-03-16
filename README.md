@@ -80,3 +80,74 @@ Metrics are computed for:
 
 - the entire forecast horizon
 - each individual forecast step
+
+## Project Structure
+```
+air-quality-rnn
+│
+├── configs
+│   ├── base.yaml                 # default configuration
+│   └── experiments               # configs for LSTM experiments
+│       ├── lstm_baseline.yaml
+│       ├── lstm_dropout.yaml
+│       └── lstm_small_lr.yaml
+│
+├── data
+│   └── raw
+│       └── air_quality.csv       # dataset
+│
+├── notebooks
+│   └── analysis.ipynb            # exploratory analysis
+│
+├── reports
+│   ├── experiments               # experiment metrics
+│   ├── figures                   # generated plots
+│   ├── baselines_metrics.json
+│   └── ridge_metrics.json
+│
+├── src
+│   └── air_quality_rnn
+│       ├── baselines.py          # naive forecasting baselines
+│       ├── config.py             # config loading utilities
+│       ├── datasets.py           # dataset creation and splits
+│       ├── evaluate.py           # forecasting metrics
+│       ├── generate_plots.py     # generate evaluation plots
+│       ├── models.py             # model definitions (Ridge, LSTM)
+│       ├── preprocessing.py      # data preprocessing utilities
+│       ├── run_baselines.py      # run baseline models
+│       ├── run_linear_model.py   # train Ridge regression model
+│       ├── run_rnn.py            # train LSTM model
+│       ├── utils.py              # helper functions
+│       └── visualization.py      # plotting utilities
+│
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
+
+### Key components
+
+**datasets.py**
+
+Creates train/validation/test splits and constructs sliding window datasets.
+
+**run_baselines.py**
+
+Runs naive forecasting baselines.
+
+**run_linear_model.py**
+
+Trains a Ridge regression model using lagged input windows.
+
+**run_rnn.py**
+
+Trains an LSTM model for multi-step forecasting.
+
+**evaluate.py**
+
+Computes evaluation metrics including MAE, RMSE and R² across forecast horizons.
+
+**visualization.py**
+
+Generates plots for forecast examples and horizon-wise model comparison.
