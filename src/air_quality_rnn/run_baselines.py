@@ -7,7 +7,7 @@ from air_quality_rnn.config import load_config
 from air_quality_rnn.datasets import create_datasets
 from air_quality_rnn.baselines import naive_forecast, seasonal_naive_forecast 
 from air_quality_rnn.evaluate import evaluate_forecast
-from air_quality_rnn.utils import convert_numpy, round_metrics
+from air_quality_rnn.utils import convert_numpy, round_metrics, inverse_scale_targets
 
 
 def main():
@@ -38,7 +38,7 @@ def main():
     df.drop(columns=['year', 'month', 'day', 'hour'], inplace=True)
 
     # Create datasets
-    X_train, y_train, X_val, y_val, X_test, y_test, feature_scaler, target_scaler = create_datasets(
+    X_train, y_train, X_val, y_val, X_test, y_test, _feature_scaler, target_scaler = create_datasets(
         df=df,
         train_size=train_size,
         val_size=val_size,
@@ -63,9 +63,14 @@ def main():
         horizon
     )
 
+    # Inverse scale predictions and true values for evaluation
+    y_test_true = inverse_scale_targets(y_test, target_scaler)
+    naive_predictions = inverse_scale_targets(naive_predictions, target_scaler)
+    seasonal_naive_predictions = inverse_scale_targets(seasonal_naive_predictions, target_scaler)
+
     # Evaluate baselines and print results
-    naive_metrics = evaluate_forecast(y_test, naive_predictions)
-    seasonal_naive_metrics = evaluate_forecast(y_test, seasonal_naive_predictions)
+    naive_metrics = evaluate_forecast(y_test_true, naive_predictions)
+    seasonal_naive_metrics = evaluate_forecast(y_test_true, seasonal_naive_predictions)
 
     print("Naive baseline:")
     print(round_metrics(naive_metrics))

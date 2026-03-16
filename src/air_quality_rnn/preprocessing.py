@@ -84,8 +84,14 @@ def preprocess_splits(
     target_scaler.fit(train_imputed[[target_column]].to_numpy())
 
     # Transform features
-    train_scaled[feature_columns] = feature_scaler.transform(train_scaled[feature_columns])
-    val_scaled[feature_columns] = feature_scaler.transform(val_scaled[feature_columns])
-    test_scaled[feature_columns] = feature_scaler.transform(test_scaled[feature_columns])
+    train_scaled[feature_columns] = feature_scaler.transform(
+        train_scaled[feature_columns].to_numpy()
+    )
+    val_scaled[feature_columns] = feature_scaler.transform(
+        val_scaled[feature_columns].to_numpy()
+    )
+    test_scaled[feature_columns] = feature_scaler.transform(
+        test_scaled[feature_columns].to_numpy()
+    )
 
     return train_imputed, val_imputed, test_imputed, train_scaled, val_scaled, test_scaled, feature_scaler, target_scaler
