@@ -151,3 +151,97 @@ Computes evaluation metrics including MAE, RMSE and R² across forecast horizons
 **visualization.py**
 
 Generates plots for forecast examples and horizon-wise model comparison.
+
+## Methodology
+
+### Data preprocessing
+
+The dataset consists of hourly air quality and meteorological observations.  
+Data preprocessing includes:
+
+- chronological sorting of observations
+- handling missing values via imputation
+- feature scaling using `StandardScaler`
+- separate scaling of features and target variable
+
+Scaling is performed **after the train/validation/test split** to avoid data leakage.
+
+---
+
+### Sliding window dataset
+
+The time series is transformed into a supervised learning dataset using a **sliding window approach**.
+
+Each training example consists of:
+
+```
+Input: previous 48 hours of observations
+Target: next 24 hours of PM2.5 values
+```
+
+This produces input tensors with shape:
+
+```
+(samples, window_size, n_features)
+```
+
+and targets:
+
+```
+(samples, forecast_horizon)
+```
+
+
+---
+
+### Models
+
+The project compares several forecasting approaches:
+
+**Naive baseline**
+
+Uses the most recent observation as the prediction for all future time steps.
+
+**Ridge regression**
+
+A regularized linear regression model trained on flattened input windows.
+
+This model serves as a strong classical baseline for time-series forecasting.
+
+**LSTM**
+
+A recurrent neural network model trained on sequential input windows.
+
+Architecture:
+
+```
+Input → LSTM → Dense → 24-step forecast
+```
+
+
+Training uses:
+
+- Mean Squared Error loss
+- Adam optimizer
+- Early stopping based on validation loss
+
+---
+
+### Evaluation
+
+Models are evaluated using a **chronological train / validation / test split**.
+
+Metrics are computed on the **original scale of the target variable** using inverse scaling.
+
+Evaluation metrics include:
+
+- Mean Absolute Error (MAE)
+- Root Mean Squared Error (RMSE)
+- R² score
+
+Performance is reported:
+
+- for the entire forecast horizon
+- for each individual forecast step
+
+This allows comparison of models across short- and long-term forecasts.
