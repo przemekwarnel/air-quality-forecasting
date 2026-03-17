@@ -24,6 +24,15 @@ The repository demonstrates a full **Applied ML workflow for time-series forecas
 - horizon-wise evaluation
 - visualization of forecast performance
 
+## Tech Stack
+
+- **Python**
+- **pandas / NumPy** — data processing
+- **scikit-learn** — classical machine learning
+- **TensorFlow / Keras** — deep learning (LSTM)
+- **Matplotlib** — visualization
+- **YAML** — configuration management
+
 ## Dataset
 
 The project uses an air quality dataset containing hourly observations of pollution and meteorological variables.
