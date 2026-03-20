@@ -24,6 +24,14 @@ The repository demonstrates a full **Applied ML workflow for time-series forecas
 - horizon-wise evaluation
 - visualization of forecast performance
 
+## Key Features 
+
+- Chronological time-series split
+- Sliding window dataset construction
+- Multi-horizon forecasting (24 steps)
+- Comparison of classical ML and deep learning models
+- Horizon-wise evaluation metrics
+  
 ## Tech Stack
 
 - **Python**
