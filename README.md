@@ -183,8 +183,6 @@ Data preprocessing includes:
 
 Scaling is performed **after the train/validation/test split** to avoid data leakage.
 
----
-
 ### Sliding window dataset
 
 The time series is transformed into a supervised learning dataset using a **sliding window approach**.
@@ -207,9 +205,6 @@ and targets:
 ```
 (samples, forecast_horizon)
 ```
-
-
----
 
 ### Models
 
@@ -245,8 +240,6 @@ Training uses:
 - Mean Squared Error loss
 - Adam optimizer
 - Early stopping based on validation loss
-
----
 
 ### Evaluation
 
